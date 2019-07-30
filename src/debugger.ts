@@ -3,14 +3,23 @@
 
 import { IDisposable } from '@phosphor/disposable';
 
-import { Widget } from '@phosphor/widgets';
+import { SplitPanel } from '@phosphor/widgets';
 
 import { IDebugger } from './tokens';
+import VariablesWidget from './variables/variables-widget';
 
-export class Debugger extends Widget implements IDebugger {
-  constructor(options: Widget.IOptions = {}) {
+export class Debugger extends SplitPanel implements IDebugger {
+  readonly variables: VariablesWidget = new VariablesWidget();
+
+  constructor(options: SplitPanel.IOptions = {}) {
     super(options);
+
+    const label = 'Environment';
+    this.id = 'jp-debugger';
+    this.title.label = label;
     this.addClass('jp-Debugger');
+
+    this.addWidget(this.variables);
   }
 
   readonly model = new Debugger.Model();

@@ -25,18 +25,14 @@ const plugin: JupyterFrontEndPlugin<IDebugger> = {
   ): IDebugger => {
     console.log(plugin.id, 'Hello, world.');
     const { shell } = app;
-    const label = 'Environment';
-    const widget = new Debugger();
-
-    widget.id = 'jp-debugger';
-    widget.title.label = label;
-    shell.add(widget, 'right', { activate: false });
+    const debuggerWidget = new Debugger();
+    shell.add(debuggerWidget, 'right', { activate: false });
 
     if (restorer) {
-      restorer.add(widget, widget.id);
+      restorer.add(debuggerWidget, debuggerWidget.id);
     }
 
-    return widget;
+    return debuggerWidget;
   }
 };
 
